@@ -4,12 +4,6 @@
 const Project = require("./projects-model");
 
 
-const handleError = (err, req, res) => {
-    res.status(err.status || 500).json({
-        message: err.message,
-    })
-}
-
 const validateProjectId = async (req, res, next) => {
     try{
         const { id } = req.params;
@@ -45,4 +39,4 @@ const validateProject = async (req, res, next) => {
   };
 
 
-module.exports = { handleError, validateProjectId, validateProject };
+module.exports = { validateProjectId, validateProject };
