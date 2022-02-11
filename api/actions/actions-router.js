@@ -64,7 +64,15 @@ router.put(
 );
 
 // // [DELETE] /api/actions/:id
-// router.delete("/:id", async (req, res, next) => {});
+router.delete("/:id", validateActionId, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Action.remove(id);
+    res.end();
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Error Handling 
 router.use(handleError);
