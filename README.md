@@ -147,7 +147,52 @@ We have provided test data for all the resources.
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
-1. Understand and explain the use of Middleware.
-1. The basic principles of the REST architectural style.
-1. Understand and explain the use of Express Routers.
-1. Describe tooling used to manually test the correctness of an API.
+
+Node is an open-source, cross-platform runtime environment that allows developers to create all kinds of server-side tools and applications in JavaScript. Node.js is well-supported by many web hosting providers, that often provide specific infrastructure and documentation for hosting Node sites. It has a very active third party ecosystem and developer community, with lots of people who are willing to help.
+Express is the most popular Node web framework, and is the underlying library for a number of other popular Node web frameworks. It provides mechanisms to:
+Write handlers for requests with different HTTP verbs at different URL paths (routes). Set common web application settings like the port to use for connecting, and the location of templates that are used for rendering the response. Add additional request processing "middleware" at any point within the request handling pipeline.
+
+2. Understand and explain the use of Middleware.
+
+Middleware is a term for any software or service that enables the parts of a system to communicate and manage data. It is the software that handles communication between components and input/output, so developers can focus on the specific purpose of their application.
+There are three different categories of middleware:
+Built-in middleware
+Third-party middleware
+Custom middleware
+Middleware used to refer to pre-built software components that can be added to the framework's request/response processing pipeline, to handle tasks such as database access.
+
+3. The basic principles of the REST architectural style.
+
+REST is a generally agreed-upon set of principles and constraints. They are recommendations, not a standard.
+
+When designing a RESTful Web API, keep these principles in mind:
+
+Everything is a resource.
+Each resource is accessible via a unique URI.
+Resources can have multiple representations.
+Communication happens over a stateless protocol (HTTP).
+Resource management happens via HTTP methods.
+Applying the REST architecture to our APIs can make them scalable and simpler to maintain and extend.
+
+REST APIs have six constraints: 
+client-server architecture
+stateless architecture: each request should stand on its own, and order should not matter. No shared state.
+cacheable:  improves network performance. 
+layered system: there are layers between a client and a server like logging, caching, DNS server, load balancers and authentication.
+code on demand: 
+The API returns the resource and code to act on it.
+The client only needs to know how to execute the code.
+Makes the API more flexible, upgradeable, and extendible.
+Most web applications send JavaScript code along with the data.
+uniform interfaces: Each resource should be accessible through a single URL. 
+
+
+4. Understand and explain the use of Express Routers.
+
+The express.Router() function is used to create a new router object. This function is used when you want to create a new router object in your program to handle requests. 
+Express Router is a built-in class that refers to how an application’s endpoints (URIs) respond to client requests. The express router class helps in the creation of route handlers.
+You can define routing using methods of the Express app object that correspond to HTTP methods; for example, app.get() to handle GET requests and app.post to handle POST requests.
+
+5. Describe tooling used to manually test the correctness of an API.
+
+Postman is a Google chrome app used for verifying and automating API testing. It is a prevalent tool used to test APIs manually. It comes loaded with a lot of useful features that make testing APIs easy. We can also use HTTPie to manually test the API through the terminal inside of VS code. HTTPie is a command-line HTTP client and its goal is to make CLI interaction with web services as human-friendly as possible. It is designed for testing, debugging, and interacting with APIs. 
