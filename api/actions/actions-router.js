@@ -3,7 +3,7 @@
 // Imports
 const express = require('express');
 const Action = require('./actions-model');
-// const { validateActionId } = require("./actions-middleware");
+const { validateActionId, validateNewAction } = require("./actions-middlware");
 const { handleError } = require("./../middleware");
 
 // Declare Router 
@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 // [GET] /api/actions/:id
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", validateActionId, async (req, res, next) => {
   try {
     const { id } = req.params;
     const targetAction = await Action.get(id);
@@ -32,13 +32,26 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // [POST] /api/actions
-router.post("/", async (req, res, next) => {});
+router.post("/", validateNewAction, async (req, res, next) => {
+  try {
+    const { project_id, description, notes, completed = false } = req.body;
+    const newAction = await Action.insert({
+      project_id,
+      description,
+      notes,
+      completed,
+    });
+    res.status(201).json(newAction);
+  } catch (err) {
+    next(err);
+  }
+});
 
-// [PUT] /api/actions/:id
-router.put("/:id", async (req, res, next) => {});
+// // [PUT] /api/actions/:id
+// router.put("/:id", async (req, res, next) => {});
 
-// [DELETE] /api/actions/:id
-router.delete("/:id", async (req, res, next) => {});
+// // [DELETE] /api/actions/:id
+// router.delete("/:id", async (req, res, next) => {});
 
 // Error Handling 
 router.use(handleError);
