@@ -21,7 +21,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 // [GET] /api/actions/:id
-router.get("/:id", async (req, res, next) => {});
+router.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const targetAction = await Action.get(id);
+    res.status(200).json(targetAction);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // [POST] /api/actions
 router.post("/", async (req, res, next) => {});
