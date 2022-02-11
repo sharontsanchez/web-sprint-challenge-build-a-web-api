@@ -11,7 +11,7 @@ const validateActionId = async (req, res, next) => {
     if (targetAction) {
       next();
     } else {
-      res.status(404).json({ message: `Action with ID #${id} not found!` });
+      res.status(404).json({ message: `The action with ID #${id} cannot be found!` });
     }
   } catch (err) {
     next(err);
@@ -31,7 +31,7 @@ const validateNewAction = (req, res, next) => {
       }
     } else {
       res.status(400).json({
-          message: "New actions require project_id, description, and notes",
+          message: "The new actions require project_id, description, and notes",
         });
     }
   } catch (err) {
@@ -53,7 +53,7 @@ const validateUpdatedAction = (req, res, next) => {
     } else {
       res.status(400).json({
         message:
-          "Action updates require project_id, description, notes, and a completed status",
+          " The action updates require project_id, description, notes, and a completed status",
       });
     }
   } catch (err) {
