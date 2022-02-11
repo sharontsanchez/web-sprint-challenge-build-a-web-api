@@ -3,7 +3,7 @@
 // Imports
 const express = require('express');
 const Projects = require('./projects-model');
-const { handleError, validateProjectId } = require('./projects-middleware');
+const { handleError, validateProjectId, validateProject } = require('./projects-middleware');
 
 // Declare Router 
 const router = express.Router();
@@ -36,6 +36,15 @@ router.get("/:id", validateProjectId, async (req, res, next) => {
 });
 
 // `[POST] /api/projects`
+
+router.post("/", validateProject, async (req, res, next) => {
+    try {
+      const newProject = await Projects.insert(req.body);
+      res.status(201).json(newProject);
+    } catch (err) {
+      next(err);
+    }
+  });
 
 // `[PUT] /api/projects/:id`
 

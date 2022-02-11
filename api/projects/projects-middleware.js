@@ -28,7 +28,21 @@ const validateProjectId = async (req, res, next) => {
     }
 };
 
+const validateProject = async (req, res, next) => {
+    try {
+      const { name, description } = req.body;
+      if (name && description) {
+        next();
+      } else {
+        next({
+          status: 400,
+          message: "need a name and description",
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  };
 
 
-
-module.exports = { handleError, validateProjectId };
+module.exports = { handleError, validateProjectId, validateProject };
