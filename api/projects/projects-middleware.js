@@ -1,6 +1,4 @@
 // add middlewares here related to projects
-
-
 const Project = require("./projects-model");
 
 
@@ -22,7 +20,7 @@ const validateProjectId = async (req, res, next) => {
     }
 };
 
-const validateProject = async (req, res, next) => {
+const validateNewProject = async (req, res, next) => {
     try {
       const { name, description } = req.body;
       if (name && description) {
@@ -30,7 +28,23 @@ const validateProject = async (req, res, next) => {
       } else {
         next({
           status: 400,
-          message: "need a name and description",
+          message: "The new project requires a name and description",
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  const validateUpdatedProject = async (req, res, next) => {
+    try {
+      const { name, description, completed } = req.body;
+      if (name && description && completed !== undefined) {
+        next();
+      } else {
+        next({
+          status: 400,
+          message: "The project update requires a name, description, and completed status",
         });
       }
     } catch (err) {
@@ -39,4 +53,4 @@ const validateProject = async (req, res, next) => {
   };
 
 
-module.exports = { validateProjectId, validateProject };
+module.exports = { validateProjectId, validateNewProject, validateUpdatedProject };

@@ -3,7 +3,7 @@
 // Imports
 const express = require('express');
 const Projects = require('./projects-model');
-const { validateProjectId, validateProject } = require('./projects-middleware');
+const { validateProjectId, validateNewProject, validateUpdatedProject, } = require('./projects-middleware');
 const { handleError } = require('./../middleware');
 
 // Declare Router 
@@ -21,8 +21,7 @@ router.get('/', async (req, res, next) => {
     } catch(err){
         next(err);
         }
-    }
-)
+    });
 
 // `[GET] /api/projects/:id`
 
@@ -38,9 +37,14 @@ router.get("/:id", validateProjectId, async (req, res, next) => {
 
 // `[POST] /api/projects`
 
-router.post("/", validateProject, async (req, res, next) => {
+router.post("/", validateNewProject, async (req, res, next) => {
     try {
-      const newProject = await Projects.insert(req.body);
+      const { name, description, completed = false } = req.body;
+      const newProject = await Projects.insert({
+        name,
+        description,
+        completed,
+      });
       res.status(201).json(newProject);
     } catch (err) {
       next(err);
@@ -48,6 +52,27 @@ router.post("/", validateProject, async (req, res, next) => {
   });
 
 // `[PUT] /api/projects/:id`
+
+router.put(
+    "/:id",
+    validateProjectId,
+    validateUpdatedProject,
+    async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        const { name, description, completed } = req.body;
+        const updatedProject = await Projects.update(id, {
+          name,
+          description,
+          completed,
+        });
+        res.status(200).json(updatedProject);
+      } catch (err) {
+        next(err);
+      }
+    }
+  );
+  
 
 // `[DELETE] /api/projects/:id`
 
