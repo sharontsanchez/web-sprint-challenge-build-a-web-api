@@ -6,6 +6,8 @@ const { logger } = require('./middleware');
 
 // Configure your server here
 const server = express();
+
+// Middleware
 server.use(express.json());
 server.use(logger);
 
@@ -19,7 +21,6 @@ server.use('./api/projects', projectsRouter);
 server.get('/', (req, res) => {
     res.send('server has been set up!')
 })
-
 
 // Do NOT `server.listen()` inside this file!
 

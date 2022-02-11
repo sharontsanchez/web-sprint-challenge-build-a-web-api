@@ -10,7 +10,7 @@ const validateProjectId = async (req, res, next) => {
             next();
         } else {
             next({
-                status:404,
+                status: 404,
                 message: `Project with ID#${id} cannot be found.`
             });
         }
@@ -39,7 +39,7 @@ const validateNewProject = async (req, res, next) => {
   const validateUpdatedProject = async (req, res, next) => {
     try {
       const { name, description, completed } = req.body;
-      if (name && description && completed === "boolean") {
+      if (name && description && typeof completed === "boolean") {
         next();
       } else {
         next({
