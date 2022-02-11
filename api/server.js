@@ -12,9 +12,9 @@ server.use(express.json());
 server.use(logger);
 
 // Build your actions router in /api/actions/actions-router.js
-server.use('./api/actions', actionsRouter);
+server.use('/api/actions', actionsRouter);
 // Build your projects router in /api/projects/projects-router.js
-server.use('./api/projects', projectsRouter);
+server.use('/api/projects', projectsRouter);
 
 
 

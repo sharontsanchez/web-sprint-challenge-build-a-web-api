@@ -87,14 +87,14 @@ router.delete("/:id", validateProjectId, async (req, res, next) => {
 // `[GET] /api/projects/:id/actions`
 
 router.get("/:id/actions", validateProjectId, async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const targetProject = await Project.get(id);
-      res.status(200).json(targetProject.actions);
-    } catch (err) {
-      next(err);
-    }
-  });
+  try {
+    const { id } = req.params
+    const projectActions = await Project.getProjectActions(id)
+    res.status(200).json(projectActions)
+  } catch (err) {
+    next(err)
+  }
+});
 
 // Error Handling 
 router.use(handleError);
