@@ -3,7 +3,11 @@
 // Imports
 const express = require('express');
 const Project = require('./projects-model');
-const { validateProjectId, validateNewProject, validateUpdatedProject, } = require('./projects-middleware');
+const { 
+  validateProjectId, 
+  validateNewProject, 
+  validateUpdatedProject, 
+} = require('./projects-middleware');
 const { handleError } = require('./../middleware');
 
 // Declare Router 
@@ -74,7 +78,7 @@ router.delete("/:id", validateProjectId, async (req, res, next) => {
     try {
       const { id } = req.params;
       await Project.remove(id);
-      res.end(); 
+      res.end()
     } catch (err) {
       next(err);
     }
