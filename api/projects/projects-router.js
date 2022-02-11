@@ -3,7 +3,7 @@
 // Imports
 const express = require('express');
 const Projects = require('./projects-model');
-const handleError = require('./projects-middleware');
+const { handleError, validateProjectId } = require('./projects-middleware');
 
 // Declare Router 
 const router = express.Router();
@@ -24,9 +24,23 @@ router.get('/', async (req, res, next) => {
 )
 
 // `[GET] /api/projects/:id`
+
+router.get("/:id", validateProjectId, async (req, res, next) => {
+    try{
+        const { id } = req.params;
+        const project = await Projects.get(id);
+        res.status(200).json(project);
+    }catch (err){
+        next(err)
+    }
+});
+
 // `[POST] /api/projects`
+
 // `[PUT] /api/projects/:id`
+
 // `[DELETE] /api/projects/:id`
+
 // `[GET] /api/projects/:id/actions`
 
 // Error Handling 
